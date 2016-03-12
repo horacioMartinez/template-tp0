@@ -9,18 +9,24 @@ public class OperatorFactory {
 
     public Operator getOperator(char input) {
 
-        if (input == Escape.IDENTIFIER)
+        if (input == Escape.IDENTIFIER) {
             return new Escape();
-        if (input == ZeroOrMany.IDENTIFIER)
+        }
+        if (input == ZeroOrMany.IDENTIFIER) {
             return new ZeroOrMany(maxLength);
-        if (input == OneOrMany.IDENTIFIER)
+        }
+        if (input == OneOrMany.IDENTIFIER) {
             return new OneOrMany(maxLength);
-        if (input == SetSelector.IDENTIFIER)
+        }
+        if (input == SetSelector.IDENTIFIER) {
             return new SetSelector();
-        if (input == AnyCharacter.IDENTIFIER)
+        }
+        if (input == AnyCharacter.IDENTIFIER) {
             return new AnyCharacter();
-        if (input == ZeroOrOne.IDENTIFIER)
+        }
+        if (input == ZeroOrOne.IDENTIFIER) {
             return new ZeroOrOne();
+        }
         return null;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class Escape extends Operator {
 
-    public final static char IDENTIFIER = '\\';
+    public static final char IDENTIFIER = '\\';
 
     public void operate(Stack<String> result) {
     }

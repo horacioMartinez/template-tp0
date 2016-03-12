@@ -2,8 +2,8 @@ package ar.fiuba.tdd.template.tp0;
 
 
 public class RandomGenerator {
-    private final static int MIN_ASCII = 0;
-    private final static int MAX_ASCII = 255;
+    private static final int MIN_ASCII = 0;
+    private static final int MAX_ASCII = 255;
 
     public int getRandomInt(int lowerBound, int upperBound) {
         return (lowerBound + (int) (Math.random() * ((upperBound - lowerBound) + 1)));

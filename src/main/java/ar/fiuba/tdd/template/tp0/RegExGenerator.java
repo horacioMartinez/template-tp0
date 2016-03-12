@@ -28,17 +28,19 @@ public class RegExGenerator {
             }
         }
 
-        String res = "";
+        StringBuffer buf = new StringBuffer();
         while (!operationsResult.empty()) {
-            res += (operationsResult.pop());
+            buf.append(operationsResult.pop());
         }
+        String res = buf.toString();
         return new StringBuilder(res).reverse().toString();
     }
 
     public List<String> generate(String regEx, int numberOfResults) {
         ArrayList<String> res = new ArrayList<String>();
-        for (int j = 0; j < numberOfResults; j++)
+        for (int j = 0; j < numberOfResults; j++) {
             res.add(generate(regEx));
+        }
         return res;
     }
 }

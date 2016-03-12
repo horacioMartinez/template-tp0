@@ -2,22 +2,14 @@ package ar.fiuba.tdd.template.tp0;
 
 import java.util.Stack;
 
-public class OneOrMany extends Operator {
-    public final static char IDENTIFIER = '+';
-    private int maxLength;
-    private RandomGenerator randomGenerator = new RandomGenerator();
+public class OneOrMany extends NumberOrMany {
+    public static final char IDENTIFIER = '+';
 
     public OneOrMany(int maxLength) {
-        this.maxLength = maxLength;
+        super(maxLength);
     }
 
     public void operate(Stack<String> result) {
-        String lastItem = result.pop();
-        int amount = randomGenerator.getRandomInt(1, maxLength);
-        String res = "";
-        for (int i = 0; i < amount; i++) {
-            res += lastItem;
-        }
-        result.push(res);
+        super.operate(result, 1);
     }
 }
