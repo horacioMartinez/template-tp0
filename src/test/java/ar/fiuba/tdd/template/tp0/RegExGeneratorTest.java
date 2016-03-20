@@ -10,9 +10,10 @@ import static org.junit.Assert.assertTrue;
 
 public class RegExGeneratorTest {
 
+    private static final int MAX_LENGTH = 100;
 
     private boolean validate(String regEx, int numberOfResults) {
-        RegExGenerator generator = new RegExGenerator(34);//Integer.MAX_VALUE);
+        RegExGenerator generator = new RegExGenerator(MAX_LENGTH);
         List<String> results = generator.generate(regEx, numberOfResults);
         // force matching the beginning and the end of the strings
         Pattern pattern = Pattern.compile("^" + regEx + "$");
@@ -20,9 +21,9 @@ public class RegExGeneratorTest {
                 .stream()
                 .reduce(true,
                         (acc, item) -> {
-                            Matcher matcher = pattern.matcher(item);
-                            return acc && matcher.find();
-                        },
+                        Matcher matcher = pattern.matcher(item);
+                        return acc && matcher.find();
+                    },
                         (item1, item2) -> item1 && item2);
     }
 
@@ -67,7 +68,7 @@ public class RegExGeneratorTest {
     }
 
     @Test
-    public void testEscapeZeroOrOneManyTimes() {
+    public void testEscapeManyTimes() {
         assertTrue(validate("asd\\?\\??", 100));
     }
 
@@ -75,4 +76,35 @@ public class RegExGeneratorTest {
     public void testCharacterSetWithOperatorsManyResults() {
         assertTrue(validate("[asd]*?", 250));
     }
+
+    @Test
+    public void testMultipleAnyCharacters() {
+        assertTrue(validate(".*s*f*h*c*", 250));
+    }
+
+    @Test
+    public void testConcatenatedSetSelectors() {
+        assertTrue(validate("[[[a\\]so]d?cs]sd]", 100));
+    }
+
+    @Test
+    public void testEscapedSetSelectors() {
+        assertTrue(validate("[[[a\\]so]d?cs]sd]", 100));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testMissingSetSelector() {
+        validate("zxc[cv]]", 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testMissingCharacterBeforeZeroOrMany() {
+        validate("*", 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testMissingCharacterBeforeOneOrMany() {
+        validate("+", 1);
+    }
+
 }
