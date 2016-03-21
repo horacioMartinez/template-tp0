@@ -32,8 +32,8 @@ public class RegExGenerator {
         while (!operationsResult.empty()) {
             buf.append(operationsResult.pop());
         }
-        String res = buf.toString();
-        return new StringBuilder(res).reverse().toString();
+        String resInvetido = buf.toString();
+        return new StringBuilder(resInvetido).reverse().toString();
     }
 
     public List<String> generate(String regEx, int numberOfResults) {

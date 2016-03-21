@@ -78,18 +78,24 @@ public class RegExGeneratorTest {
     }
 
     @Test
-    public void testMultipleAnyCharacters() {
+    public void testMultipleZeroOrMany() {
         assertTrue(validate(".*s*f*h*c*", 250));
     }
 
     @Test
+    public void testEscapeAll() {
+        assertTrue(validate("\\.\\*\\[\\]\\+",1));
+    }
+
+
+    @Test
     public void testConcatenatedSetSelectors() {
-        assertTrue(validate("[[[a\\]so]d?cs]sd]", 100));
+        assertTrue(validate("[[[aso]d?cs]sd]", 100));
     }
 
     @Test
     public void testEscapedSetSelectors() {
-        assertTrue(validate("[[[a\\]so]d?cs]sd]", 100));
+        assertTrue(validate("[a\\]ssd]", 1));
     }
 
     @Test(expected = RuntimeException.class)
@@ -99,12 +105,17 @@ public class RegExGeneratorTest {
 
     @Test(expected = RuntimeException.class)
     public void testMissingCharacterBeforeZeroOrMany() {
-        validate("*", 1);
+        validate("*sda", 1);
     }
 
     @Test(expected = RuntimeException.class)
     public void testMissingCharacterBeforeOneOrMany() {
-        validate("+", 1);
+        validate("+dsa", 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testMissingCharacterBeforeZeroOrOne() {
+        validate("?asd", 1);
     }
 
 }

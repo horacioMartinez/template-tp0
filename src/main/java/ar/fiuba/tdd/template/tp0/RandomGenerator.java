@@ -6,7 +6,7 @@ public class RandomGenerator {
     private static final int MAX_ASCII = 255;
     private static final int[] INVALIDS_ASCII = {10, 13, 133};
 
-    private boolean isValidAscii(int number) {
+    private boolean isValidRegExAscii(int number) {
         if ((number < MIN_ASCII) || (number > MAX_ASCII)) {
             return false;
         }
@@ -24,7 +24,7 @@ public class RandomGenerator {
 
     public char getRandomChar() {
         int res = getRandomInt(MIN_ASCII, MAX_ASCII);
-        while (!isValidAscii(res)) {
+        while (!isValidRegExAscii(res)) {
             res = getRandomInt(MIN_ASCII, MAX_ASCII);
         }
         return (char) res;
