@@ -23,7 +23,9 @@ public class SetSelector extends Operator {
         if (!found) {
             throw new RuntimeException("Invalid regEx, missing [");
         }
-
+        if (targetItems.size() == 0) {
+            throw new RuntimeException("Invalid regEx, must contain at least one character between set selectors");
+        }
         result.push(targetItems.get(randomGenerator.getRandomInt(0, targetItems.size() - 1)));
     }
 }

@@ -87,7 +87,6 @@ public class RegExGeneratorTest {
         assertTrue(validate("\\.\\*\\[\\]\\+",1));
     }
 
-
     @Test
     public void testConcatenatedSetSelectors() {
         assertTrue(validate("[[[aso]d?cs]sd]", 100));
@@ -116,6 +115,16 @@ public class RegExGeneratorTest {
     @Test(expected = RuntimeException.class)
     public void testMissingCharacterBeforeZeroOrOne() {
         validate("?asd", 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testEmptySetSelectors() {
+        validate("[]", 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testCharactersWithEmptySetSelectors() {
+        validate("aaa[]bbb", 1);
     }
 
 }
